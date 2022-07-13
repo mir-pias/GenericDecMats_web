@@ -14,6 +14,7 @@ import django.core.validators as val
 from django.utils.translation import gettext_lazy as _
 from django.core.cache import cache
 from django.views.decorators.cache import cache_control
+from .utils import Queries
 
 
 
@@ -50,7 +51,16 @@ class OutputView(View):
         self.n = request.GET.get('n')
         self.d = request.GET.get('d')
 
-        return index(request)   
+        query = Queries()
+
+        output_decmat = query.decmats_query(self.type, self.n, self.d)
+
+        input_list = ['type: ' + str(self.type),'n: ' + str(self.n), 'd: '+ str(self.d)]
+
+
+        context = {'input_list': input_list, 'queryset': output_decmat }
+
+        return render(request, 'DecMats/output.html',context)
 
     def get(self, request):
         return self.output(request)

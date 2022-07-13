@@ -1,4 +1,4 @@
-<form action='' method="GET">
+<form action="{% url 'DecMats:output' %}" method="GET">
     {% csrf_token %}
     
     <table>
@@ -7,3 +7,7 @@
     <input type="submit" value="search" name="search">
     </form>
     
+<form action="{% url 'DecMats:index' %}" method="GET">
+        {% csrf_token %}
+      <input type="submit" value="reset" name="reset">
+</form>
